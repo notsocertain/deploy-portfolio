@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rasa-deployment
+  labels:
+    app: rasa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rasa
+  template:
+    metadata:
+      labels:
+        app: rasa
+    spec:
+      containers:
+      - name: rasa
+        image: rasa/rasa:latest  # Updated to use the latest Rasa image
+        ports:
+        - containerPort: 5005
+        command: ["rasa"]
+        args: ["run", "--enable-api", "--cors", "*"]
